@@ -15,6 +15,11 @@ sequelize.authenticate()
     .then(() => console.log('Conexión exitosa a la base de datos.'))
     .catch(err => console.error('Error al conectar a la base de datos:', err));
 
+    // Middleware de errores
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
+});
 
 // Visualizar
 app.get('/aprendices', async (request, response) => {
@@ -71,5 +76,3 @@ app.delete('/aprendices/:id', async (request, response) => {
         response.status(500).json({ error: 'Error al eliminar el registro.' });
     }
 });
-
-
