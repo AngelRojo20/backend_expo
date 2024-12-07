@@ -1,20 +1,21 @@
+// server.js
 const express = require('express');
 const sequelize = require('./config');
-const Aprendiz = require('./models/aprendiz');
+const aprendizRoutes = require('./routes/aprendiz.routes');
 
 const app = express();
 app.use(express.json());
+app.use('/aprendices', aprendizRoutes);
 
 const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
 
-// Prueba
+// Prueba de conexión
 sequelize.authenticate()
     .then(() => console.log('Conexión exitosa a la base de datos.'))
     .catch(err => console.error('Error al conectar a la base de datos:', err));
 
+<<<<<<< HEAD
     // Middleware de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -76,3 +77,10 @@ app.delete('/aprendices/:id', async (request, response) => {
         response.status(500).json({ error: 'Error al eliminar el registro.' });
     }
 });
+=======
+// Middleware de errores
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
+});
+>>>>>>> 7e00477c499745d0f9684d17573c83f95584c561
