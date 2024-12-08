@@ -1,17 +1,26 @@
-const Aprendiz = require('../models/aprendiz'); // Importamos el modelo Sequelize
+const Aprendiz = require('../models/aprendiz');
 
-// Definimos los resolvers
 const resolvers = {
-    Query: {
-        aprendices: async () => {
-            try {
-                return await Aprendiz.findAll(); // Obtenemos todos los registros
-            } catch (error) {
-                console.error("Error al obtener aprendices:", error);
-                throw new Error("No se pudo obtener la lista de aprendices");
-            }
-        },
+  Query: {
+    aprendices: async () => await Aprendiz.findAll(),
+  },
+  Mutation: {
+    crearAprendiz: async (_, { nombre, apellido, correo, telefono }) => {
+      return await Aprendiz.create({ nombre, apellido, correo, telefono });
     },
+    actualizarAprendiz: async (_, { id, ...rest }) => {
+      const aprendiz = await Aprendiz.findByPk(id);
+      if (!aprendiz) throw new Error('Aprendiz no encontrado');
+      await aprendiz.update(rest);
+      return aprendiz;
+    },
+    eliminarAprendiz: async (_, { id }) => {
+      const aprendiz = await Aprendiz.findByPk(id);
+      if (!aprendiz) throw new Error('Aprendiz no encontrado');
+      await aprendiz.destroy();
+      return 'Aprendiz eliminado exitosamente';
+    },
+  },
 };
 
-module.exports = resolvers; // Exportamos los resolvers
+module.exports = resolvers;
