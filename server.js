@@ -20,18 +20,3 @@ app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${POR
 sequelize.authenticate()
     .then(() => console.log('Conexión exitosa a la base de datos.'))
     .catch(err => console.error('Error al conectar a la base de datos:', err));
-
-// Middleware de errores
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-
-    // Si el error es manejado por GraphQL, no intervenir
-    if (req.path === '/graphql') {
-        return next(err); // Deja que GraphQL gestione el error
-    }
-
-    // Manejo genérico de errores
-    res.status(err.status || 500).json({ 
-        error: err.message || 'Error interno del servidor' 
-    });
-});
