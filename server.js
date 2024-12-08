@@ -15,72 +15,8 @@ sequelize.authenticate()
     .then(() => console.log('Conexión exitosa a la base de datos.'))
     .catch(err => console.error('Error al conectar a la base de datos:', err));
 
-<<<<<<< HEAD
-    // Middleware de errores
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
-});
-
-// Visualizar
-app.get('/aprendices', async (request, response) => {
-    try {
-        const aprendices = await Aprendiz.findAll();
-        response.status(200).json(aprendices);
-    } catch (error) {
-        response.status(500).json({ error: 'Error al obtener los registros.' });
-    }
-});
-
-// Crear
-app.post('/aprendices', async (request, response) => {
-    try {
-        const { nombre, apellido, correo, telefono } = request.body;
-        const nuevoAprendiz = await Aprendiz.create({ nombre, apellido, correo, telefono });
-        response.status(201).json({ message: 'Registro creado existosamente', id: nuevoAprendiz.id});
-    } catch (error) {
-        response.status(500).json({ error: 'Error al crear el registro.' });
-    }
-});
-
-// Actualizar
-app.put('/aprendices/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
-        const { nombre, apellido, correo, telefono } = request.body;
-
-        const aprendiz = await Aprendiz.findByPk(id);
-        if (!aprendiz) {
-            return response.status(404).json({ error: 'Registro no encontrado.' });
-        }
-
-        await aprendiz.update({ nombre, apellido, correo, telefono });
-        response.json({ message: 'Resgistro actualizado existosamente'});
-    } catch (error) {
-        response.status(500).json({ error: 'Error al actualizar el registro.' });
-    }
-});
-
-// Eliminar
-app.delete('/aprendices/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
-
-        const aprendiz = await Aprendiz.findByPk(id);
-        if (!aprendiz) {
-            return response.status(404).json({ error: 'Registro no encontrado.' });
-        }
-
-        await aprendiz.destroy();
-        response.json({ message: 'Registro eliminado exitosamente.' });
-    } catch (error) {
-        response.status(500).json({ error: 'Error al eliminar el registro.' });
-    }
-});
-=======
 // Middleware de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
 });
->>>>>>> 7e00477c499745d0f9684d17573c83f95584c561
