@@ -1,11 +1,17 @@
-// server.js
 const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
 const sequelize = require('./config');
-const aprendizRoutes = require('./routes/aprendiz.routes');
+const typeDefs = require('./graphql/schema');
+const resolvers = require('./graphql/resolvers');
 
 const app = express();
 app.use(express.json());
-app.use('/aprendices', aprendizRoutes);
+const server = new ApolloServer({ typeDefs, resolvers });
+
+(async () => {
+    await server.start(); // Arrancamos el servidor de Apollo
+    server.applyMiddleware({ app }); // ApolloServer utiliza Express
+})();
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
@@ -18,5 +24,14 @@ sequelize.authenticate()
 // Middleware de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
+
+    // Si el error es manejado por GraphQL, no intervenir
+    if (req.path === '/graphql') {
+        return next(err); // Deja que GraphQL gestione el error
+    }
+
+    // Manejo genérico de errores
+    res.status(err.status || 500).json({ 
+        error: err.message || 'Error interno del servidor' 
+    });
 });

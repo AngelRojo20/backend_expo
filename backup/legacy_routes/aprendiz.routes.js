@@ -1,5 +1,5 @@
 const express = require('express');
-const Aprendiz = require('../models/aprendiz');
+const Aprendiz = require('../../models/aprendiz');
 const router = express.Router();
 
 // GET: Listar todos los aprendices
