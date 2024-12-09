@@ -1,8 +1,8 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const sequelize = require('./config/config').getInstance();
-const typeDefs = require('./graphql/schema');
-const container = require('./container'); // Importa el contenedor de dependencias
+const typeDefs = require('./graphql/schema/schema');
+const container = require('./shared/container'); // Importa el contenedor de dependencias
 
 const app = express();
 
