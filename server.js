@@ -15,8 +15,3 @@ const server = new ApolloServer({ typeDefs, resolvers });
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
-
-// Prueba de conexión
-sequelize.authenticate()
-    .then(() => console.log('Conexión exitosa a la base de datos.'))
-    .catch(err => console.error('Error al conectar a la base de datos:', err));
