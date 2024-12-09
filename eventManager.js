@@ -1,9 +1,13 @@
 class EventManager {
     constructor() {
-        this.events = {}; // Almacena los eventos y sus respectivos listeners
+        if (!EventManager.instance) {
+            this.events = {};
+            EventManager.instance = this;
+        }
+
+        return EventManager.instance;
     }
 
-    // Registrar un listener para un evento específico
     subscribe(event, listener) {
         if (!this.events[event]) {
             this.events[event] = [];
@@ -11,7 +15,6 @@ class EventManager {
         this.events[event].push(listener);
     }
 
-    // Notificar a todos los listeners de un evento
     notify(event, data) {
         if (this.events[event]) {
             this.events[event].forEach((listener) => listener(data));
@@ -19,4 +22,4 @@ class EventManager {
     }
 }
 
-module.exports = new EventManager(); // Exporta una única instancia (Singleton)
+module.exports = new EventManager(); // Exporta una instancia única
