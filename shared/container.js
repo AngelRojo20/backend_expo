@@ -1,7 +1,7 @@
-const Aprendiz = require('./models/aprendiz');
-const AprendizRepository = require('./repository/aprendiz.repository');
-const AprendizService = require('./services/aprendiz.service');
-const aprendizResolversFactory = require('./graphql/resolvers/aprendiz.resolver');
+const Aprendiz = require('../models/aprendiz');
+const AprendizRepository = require('../repository/aprendiz.repository');
+const AprendizService = require('../services/aprendiz.service');
+const aprendizResolversFactory = require('../graphql/resolvers/aprendiz.resolver');
 
 class Container {
     constructor() {

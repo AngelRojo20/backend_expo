@@ -1,5 +1,5 @@
 // repositories/AprendizRepository.js
-const eventManager = require('../eventManager');
+const eventManager = require('../shared/eventManager');
 
 class AprendizRepository {
     constructor(AprendizModel) {
