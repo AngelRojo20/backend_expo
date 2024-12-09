@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/config').getInstance();
 
 const Aprendiz = sequelize.define('Aprendiz', {
     nombre: {
