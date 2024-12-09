@@ -23,7 +23,11 @@ class AprendizRepository {
             throw new Error('Telefono es un campo obligatorio');
         }
     }
-
+    
+    async getAll() {
+        return await this.Aprendiz.findAll();
+    }
+    
     async create(data) {
         this.validateAprendiz(data); // Validación centralizada
         const newAprendiz = await this.Aprendiz.create(data);
