@@ -27,6 +27,10 @@ class AprendizRepository {
     async getAll() {
         return await this.Aprendiz.findAll();
     }
+
+    async findById(id) {
+        return await this.Aprendiz.findByPk(id);
+    }
     
     async create(data) {
         this.validateAprendiz(data); // Validación centralizada
